@@ -1,13 +1,18 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
-const postRoute = require('./routes/postRoute');
+const connectDB = require('./config/database');
+const postRoutes = require('./routes/postRoutes');
 
-app.use(express.json());
-app.use('/posts', postRoute);
+const app = express();
+
+app.use(express.json()); 
+app.use('/posts', postRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Portal Educacional');
+    res.send('Seja Bem-Vindo ao Portal Educacional');
     });
 
+connectDB();
 
-module.exports = app;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
