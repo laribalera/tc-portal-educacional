@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-// importar o controller de get e delete aqui
-const { createPost, updatePost } = require('../controllers/postController');
+const { createPost, updatePost, getAllPosts, getPostById, deletePost } = require('../controllers/postController');
 
 router.post('/', createPost);
+router.get('/', getAllPosts);    
+router.get('/:id', getPostById);
 router.put('/:id', updatePost);
-//adicionar  uma linha para cada get e uma para delete aqui
+router.delete('/:id', deletePost);
 
 module.exports = router;
