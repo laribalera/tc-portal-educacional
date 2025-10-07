@@ -14,11 +14,6 @@ const createPost = async (req, res) => {
 };
 
 
-/*
-  colocar as funçoes embaixo de cada comentario de preferencia mantendo o padrao de nome funçãoPost (ex: getAllPost, getPostById, etc)
-*/ 
-
-
 //controller para pegar todos os posts
 const getAllPosts = async (req, res) => {
   try {
@@ -44,7 +39,6 @@ const getPostById = async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar post' });
   }
 };
-
 
 
 // controller para deletar um post com id
@@ -76,10 +70,33 @@ const updatePost = async (req, res) => {
 };
 
 // controller para fazer query search 
+const searchPostQuery = async (req, res) => {
+  try {
+    const { q } = req.query;
+    console.log("Query recebida:", q);
+    
+    if (!q) {
+      return res.status(400).json({ error: 'parameter de busca q é obrigatório' });
+    
+    }
+    
 
+    const posts = await Post.find({
+      $or: [
+        { titulo: { $regex: q, $options: 'i' } },
+        { conteudo: { $regex: q, $options: 'i' } },
+      ],
+    });
+
+    res.json(posts);
+  } catch (error) {
+    console.error('Erro na busca:', error);
+    res.status(500).json({ error: 'erro ao buscar posts', details: error.message });
+  }
+};
 
 
 
 
 // adicionar o nome do controller aqui
-module.exports = { createPost, updatePost, getAllPosts, getPostById, deletePost };
+module.exports = { createPost, updatePost, getAllPosts, getPostById, deletePost, searchPostQuery };
