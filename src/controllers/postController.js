@@ -72,9 +72,7 @@ const updatePost = async (req, res) => {
 // controller para fazer query search 
 const searchPostQuery = async (req, res) => {
   try {
-    const { q } = req.query;
-    console.log("Query recebida:", q);
-    
+    const { q } = req.query;    
     if (!q) {
       return res.status(400).json({ error: 'parameter de busca q é obrigatório' });
     
