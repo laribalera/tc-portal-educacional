@@ -1,60 +1,23 @@
-name:tc-portal-educaional
-on: 
-  push:
-    branches: 
-      - main
+name: tc-portal-educacional
+services:
+  app:
+    build: .
+    container_name: tc-portal-educacional-app
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://mongo:27017/portal_educacional
+    depends_on:
+      - mongo
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  mongo:
+    image: mongo:7.0
+    container_name: tc-portal-educacional-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
 
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Run tests with Docker Compose
-        run: |
-          docker-compose -f docker-compose.yml up -d mongo
-          # Aguarda MongoDB estar pronto
-          until docker-compose exec -T mongo mongo --eval "print(\"Mongo ready\")"; do
-            echo "Aguardando MongoDB..."
-            sleep 2
-          done
-          # Roda os testes dentro de um container efêmero do app
-          docker-compose run --rm app npm test -- --detectOpenHandles --forceExit --verbose
-          # Desliga os containers
-          docker-compose down
-          
-  deploy:
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to Docker registry
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build Docker image for production
-        run: docker build -t tc-portal-educacional:latest .
-
-      - name: Push Docker image
-        run: |
-          docker tag tc-portal-educacional:latest ${{ secrets.DOCKER_USERNAME }}/tc-portal-educacional:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/tc-portal-educacional:latest
-
-      - name: Deploy to server with Docker
-        run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
-            docker pull ${{ secrets.DOCKER_USERNAME }}/tc-portal-educacional:latest &&
-            docker stop tc-portal-educacional || true &&
-            docker rm tc-portal-educacional || true &&
-            docker run -d --name tc-portal-educacional -p 3000:3000 -e MONGO_URI='${{ secrets.MONGO_URI }}' ${{ secrets.DOCKER_USERNAME }}/tc-portal-educacional:latest
-          "
+volumes:
+  mongo_data:
