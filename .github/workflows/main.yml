@@ -1,0 +1,46 @@
+name: tc-portal-educacional
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docker-ci:
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Subir containers
+        run: docker compose up -d --build
+
+      - name: Aguardar MongoDB estar pronto
+        run: |
+          echo "Aguardando MongoDB..."
+          until docker compose exec -T mongo mongo --eval "print('MongoDB pronto')"; do
+            sleep 2
+          done
+
+      - name: Executar testes
+        run: docker compose run --rm app npm test -- --detectOpenHandles --forceExit --verbose
+
+      - name: Derrubar containers
+        run: docker compose down
