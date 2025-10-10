@@ -4,30 +4,26 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  docker-ci:
+  build-and-test:
     runs-on: ubuntu-latest
 
-    services:
-      mongo:
-        image: mongo:6
-
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Configurar Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+          cache: 'npm'
 
-      - name: Subir containers do app
-        run: docker compose up -d --build
+      - name: Install dependencies
+        run: npm install
 
-      - name: Executar testes
-        run: docker compose run --rm app npm test -- --detectOpenHandles --forceExit --verbose
+      - name: Build application
+        run: npm run build
 
-      - name: Derrubar containers
-        run: docker compose down
+      - name: Run tests
+        run: npm test
