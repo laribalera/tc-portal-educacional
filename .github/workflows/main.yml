@@ -18,19 +18,15 @@ jobs:
 
       - name: Run tests with Docker Compose
         run: |
-          # Sobe apenas o MongoDB
           docker compose -f docker-compose.yml up -d mongo
 
-          # Aguarda MongoDB estar pronto
           until docker compose exec -T mongo mongo --eval "print(\"Mongo ready\")"; do
             echo "Aguardando MongoDB..."
             sleep 2
           done
 
-          # Roda os testes dentro de um container efêmero do app
           docker compose run --rm app npm test -- --detectOpenHandles --forceExit --verbose
-
-          # Desliga os containers após os testes
+          
           docker compose down
 
   deploy:
