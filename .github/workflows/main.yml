@@ -1,4 +1,4 @@
-name: Projeto - Portal Educacional com Node
+name: tc-portal-educacional
 
 on: 
   push:
@@ -14,13 +14,22 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image for tests
+      - name: Run tests with Docker Compose
         run: |
-          docker build -t tc-portal-educacional-test -f Dockerfile.test .
+          # Sobe apenas o MongoDB
+          docker-compose -f docker-compose.yml up -d mongo
 
-      - name: Run tests inside Docker
-        run: |
-          docker run --rm -e MONGO_URI="mongodb://mongo:27017/test" --network host tc-portal-educacional-test npm test -- --detectOpenHandles --forceExit
+          # Aguarda MongoDB estar pronto
+          until docker-compose exec -T mongo mongo --eval "print(\"Mongo ready\")"; do
+            echo "Aguardando MongoDB..."
+            sleep 2
+          done
+
+          # Roda os testes dentro de um container efêmero do app
+          docker-compose run --rm app npm test -- --detectOpenHandles --forceExit --verbose
+
+          # Desliga os containers após os testes
+          docker-compose down
 
   deploy:
     runs-on: ubuntu-latest
@@ -39,8 +48,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image for production
-        run: |
-          docker build -t tc-portal-educacional:latest .
+        run: docker build -t tc-portal-educacional:latest .
 
       - name: Push Docker image
         run: |
@@ -55,4 +63,3 @@ jobs:
             docker rm tc-portal-educacional || true &&
             docker run -d --name tc-portal-educacional -p 3000:3000 -e MONGO_URI='${{ secrets.MONGO_URI }}' ${{ secrets.DOCKER_USERNAME }}/tc-portal-educacional:latest
           "
-  
