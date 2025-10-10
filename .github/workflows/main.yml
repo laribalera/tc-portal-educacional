@@ -1,5 +1,4 @@
 name: tc-portal-educacional
-
 on: 
   push:
     branches: 
@@ -14,22 +13,25 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
+      - name: Verify Docker Compose
+        run: docker compose version
+
       - name: Run tests with Docker Compose
         run: |
           # Sobe apenas o MongoDB
-          docker-compose -f docker-compose.yml up -d mongo
+          docker compose -f docker-compose.yml up -d mongo
 
           # Aguarda MongoDB estar pronto
-          until docker-compose exec -T mongo mongo --eval "print(\"Mongo ready\")"; do
+          until docker compose exec -T mongo mongo --eval "print(\"Mongo ready\")"; do
             echo "Aguardando MongoDB..."
             sleep 2
           done
 
           # Roda os testes dentro de um container efêmero do app
-          docker-compose run --rm app npm test -- --detectOpenHandles --forceExit --verbose
+          docker compose run --rm app npm test -- --detectOpenHandles --forceExit --verbose
 
           # Desliga os containers após os testes
-          docker-compose down
+          docker compose down
 
   deploy:
     runs-on: ubuntu-latest
