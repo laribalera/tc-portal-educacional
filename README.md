@@ -1,4 +1,4 @@
-# TC Portal Educacional API
+# Portal Educacional API
 
 API RESTful para gerenciamento de conteúdo educacional através de posts. Desenvolvida com Node.js, Express, MongoDB e validação com Zod.
 
@@ -9,13 +9,14 @@ API RESTful para gerenciamento de conteúdo educacional através de posts. Desen
 - [Pré-requisitos](#pré-requisitos)
 - [Instalação](#instalação)
 - [Configuração](#configuração)
-- [Executando a Aplicação](#executando-a-aplicação)
+- [Executando a aplicação](#executando-a-aplicação)
 - [Referência da API](#referência-da-api)
-- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Estrutura do projeto](#estrutura-do-projeto)
 - [Testes](#testes)
 - [Docker](#docker)
 - [Desenvolvimento](#desenvolvimento)
-- [Contribuição](#contribuição)
+- [Integrantes do grupo](#integrantes-do-grupo)
+- [Relato de experiências](#relato-de-experiências)
 
 ## Visão geral
 
@@ -51,8 +52,8 @@ src/
 
 - Node.js (versão 18 ou superior)
 - npm ou yarn
-- MongoDB (instalação local)
-- Docker (opcional)
+- MongoDB 
+- Docker
 
 ## Instalação
 
@@ -135,7 +136,7 @@ Content-Type: application/json
 }
 ```
 
-**Resposta (201):**
+**Resposta de exempplo (201):**
 ```json
 {
   "_id": "string",
@@ -162,7 +163,7 @@ Content-Type: application/json
 GET /posts
 ```
 
-**Resposta (200):**
+**Resposta de exemplo (200):**
 ```json
 [
   {
@@ -187,7 +188,7 @@ GET /posts/:id
 **Parâmetros:**
 - `id` (string, obrigatório): ObjectId do MongoDB
 
-**Resposta (200):**
+**Resposta de exemplo (200):**
 ```json
 {
   "_id": "string",
@@ -220,7 +221,7 @@ Content-Type: application/json
 
 **Corpo da requisição:** Mesmo formato do Criar post
 
-**Resposta (200):** Mesmo formato do Obter Post por ID
+**Resposta (200):** Mesmo formato do Obter post por ID
 
 **Respostas de erro:**
 - `400`: Erro de validação
@@ -396,3 +397,14 @@ npm start          # Modo de produção
 npm run dev        # Modo de desenvolvimento com nodemon
 npm test           # Executar suite de testes
 ```
+
+## Integrantes do grupo
+
+- Larissa Cristina de Oliveira Balera
+- Gabrielly Pereira
+
+## Relato de experiências
+
+O desenvolvimento do projeto foi satisfatório, facilitado pela semelhança com atividades realizadas em aula. Apesar de dificuldades iniciais com Docker e GitHub Actions, devido à pouca familiaridade com essas ferramentas, conseguimos superá-las por meio de estudo e prática ao longo do processo. 
+
+Essa experiência reforçou a importância da prática contínua, da colaboração entre os membros e da busca por soluções de forma autônoma e proativa, elementos que foram essenciais para o bom andamento e conclusão do trabalho.
