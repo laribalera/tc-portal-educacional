@@ -19,13 +19,13 @@ API RESTful para gerenciamento de conteúdo educacional através de posts. Desen
 
 ## Visão geral
 
-O TC Portal Educacional é uma API RESTful projetada para gerenciar conteúdo educacional através de um sistema baseado em posts. A aplicação oferece operações CRUD completas para posts educacionais com validação robusta de dados e capacidades de busca.
+O Portal Educacional é uma API RESTful projetada para gerenciar conteúdo educacional através de um sistema baseado em posts. A aplicação oferece operações CRUD completas para posts educacionais com validação robusta de dados e capacidades de busca.
 
 ### Principais funcionalidades
 
 - Operações CRUD completas para posts educacionais
 - Validação de dados usando schemas Zod
-- Busca textual completa em títulos e conteúdo
+- Consulta textual completa em títulos e conteúdo
 - Testes automatizados com Jest
 - Suporte à containerização com Docker
 - Padrão de arquitetura MVC
@@ -51,7 +51,7 @@ src/
 
 - Node.js (versão 18 ou superior)
 - npm ou yarn
-- MongoDB (instalação local ou Atlas)
+- MongoDB (instalação local)
 - Docker (opcional)
 
 ## Instalação
@@ -76,20 +76,6 @@ MONGO_URI=mongodb://localhost:27017/portal_educacional
 PORT=3000
 ```
 
-### Configuração do MongoDB
-
-#### MongoDB Local
-Instale o MongoDB Community Server e inicie o serviço:
-```bash
-mongod
-```
-
-#### MongoDB Atlas (Recomendado)
-1. Crie uma conta gratuita no [MongoDB Atlas](https://www.mongodb.com/atlas)
-2. Crie um cluster gratuito
-3. Obtenha a string de conexão
-4. Atualize o `MONGO_URI` no seu arquivo `.env`
-
 ## Executando a aplicação
 
 ### Modo de desenvolvimento
@@ -107,17 +93,14 @@ npm start
 npm test
 ```
 
-O servidor estará disponível em `http://localhost:3000`
+O servidor estará disponível em `http://localhost:3000`.
 
 ## Referência da API
 
-### URL Base
+### URL base
 ```
 http://localhost:3000
 ```
-
-### Autenticação
-Atualmente não há autenticação implementada.
 
 ### Endpoints
 
@@ -134,7 +117,7 @@ Retorna uma mensagem de boas-vindas.
 
 #### Posts
 
-##### Criar Post
+##### Criar post
 ```http
 POST /posts
 Content-Type: application/json
@@ -174,7 +157,7 @@ Content-Type: application/json
 }
 ```
 
-##### Obter Todos os Posts
+##### Obter todos os posts
 ```http
 GET /posts
 ```
@@ -196,7 +179,7 @@ GET /posts
 ]
 ```
 
-##### Obter Post por ID
+##### Consultar post por ID
 ```http
 GET /posts/:id
 ```
@@ -226,7 +209,7 @@ GET /posts/:id
 }
 ```
 
-##### Atualizar Post
+##### Atualizar post
 ```http
 PUT /posts/:id
 Content-Type: application/json
@@ -235,7 +218,7 @@ Content-Type: application/json
 **Parâmetros:**
 - `id` (string, obrigatório): ObjectId do MongoDB
 
-**Corpo da requisição:** Mesmo formato do Criar Post
+**Corpo da requisição:** Mesmo formato do Criar post
 
 **Resposta (200):** Mesmo formato do Obter Post por ID
 
@@ -243,7 +226,7 @@ Content-Type: application/json
 - `400`: Erro de validação
 - `404`: Post não encontrado
 
-##### Deletar Post
+##### Deletar post
 ```http
 DELETE /posts/:id
 ```
@@ -254,16 +237,7 @@ DELETE /posts/:id
 **Resposta (200):**
 ```json
 {
-  "message": "Post deletado com sucesso",
-  "post": {
-    "_id": "string",
-    "titulo": "string",
-    "conteudo": "string",
-    "autor": {
-      "name": "string",
-      "email": "string"
-    }
-  }
+  "message": "Post deletado com sucesso"
 }
 ```
 
@@ -274,20 +248,20 @@ DELETE /posts/:id
 }
 ```
 
-##### Buscar Posts
+##### Consultar posts por termo
 ```http
 GET /posts/search?q={consulta}
 ```
 
 **Parâmetros de query:**
-- `q` (string, obrigatório): Termo de busca
+- `q` (string, obrigatório): Termo de consulta
 
-**Resposta (200):** Array de posts que correspondem aos critérios de busca
+**Resposta (200):** Array de posts que correspondem aos critérios de consulta
 
 **Resposta de erro (400):**
 ```json
 {
-  "error": "parameter de busca q é obrigatório"
+  "error": "parameter de consulta q é obrigatório"
 }
 ```
 
@@ -297,9 +271,9 @@ GET /posts/search?q={consulta}
 |--------|-----------|
 | 200    | OK |
 | 201    | Criado |
-| 400    | Requisição Inválida |
-| 404    | Não Encontrado |
-| 500    | Erro Interno do Servidor |
+| 400    | Requisição inválida |
+| 404    | Não encontrado |
+| 500    | Erro interno do servidor |
 
 ### Validação de dados
 
@@ -348,7 +322,7 @@ tc-portal-educacional/
 - **`src/server.js`**: Ponto de entrada da aplicação, conexão com banco de dados e inicialização do servidor
 - **`src/config/database.js`**: Configuração de conexão com MongoDB usando Mongoose
 - **`src/models/Post.js`**: Modelo Mongoose com definição de schema e timestamps automáticos
-- **`src/controllers/postController.js`**: Lógica de negócio para todas as operações CRUD e funcionalidade de busca
+- **`src/controllers/postController.js`**: Lógica de negócio para todas as operações CRUD e funcionalidade de consulta
 - **`src/routes/postRoutes.js`**: Definições de rotas RESTful para posts
 - **`src/schemas/PostSchema.js`**: Schemas de validação Zod para integridade dos dados
 
@@ -363,10 +337,10 @@ npm test
 
 ### Cobertura de testes
 - Criação e validação de posts
-- Recuperação de posts (todos e por ID)
+- Consulta de posts (todos e por ID)
 - Atualização de posts
 - Exclusão de posts
-- Funcionalidade de busca textual
+- Funcionalidade de consulta textual
 - Tratamento de erros e casos extremos
 
 ### Exemplo de teste
@@ -414,11 +388,6 @@ docker run -p 3000:3000 \
   tc-portal-educacional
 ```
 
-### Serviços Docker
-- **app**: Aplicação Node.js (porta 3000)
-- **mongo**: MongoDB 7.0 (porta 27017)
-- **volumes**: Persistência de dados
-
 ## Desenvolvimento
 
 ### Scripts disponíveis
@@ -427,45 +396,3 @@ npm start          # Modo de produção
 npm run dev        # Modo de desenvolvimento com nodemon
 npm test           # Executar suite de testes
 ```
-
-### Diretrizes de desenvolvimento
-- Seguir o padrão de arquitetura MVC
-- Escrever testes para novas funcionalidades
-- Usar Zod para validação de dados
-- Seguir convenções de API RESTful
-- Documentar mudanças na API
-
-### Estilo de código
-- Usar indentação consistente (2 espaços)
-- Seguir padrões JavaScript ES6+
-- Usar nomes significativos para variáveis e funções
-- Adicionar comentários para lógica complexa
-
-## Contribuição
-
-1. Faça um fork do repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/feature-incrivel`)
-3. Commit suas mudanças (`git commit -m 'Adiciona feature incrível'`)
-4. Push para a branch (`git push origin feature/feature-incrivel`)
-5. Abra um Pull Request
-
-### Diretrizes para pull requests
-- Incluir testes para nova funcionalidade
-- Atualizar documentação conforme necessário
-- Seguir o estilo de código existente
-- Fornecer descrição clara das mudanças
-
-## Licença
-
-Este projeto está licenciado sob a Licença ISC - veja o arquivo LICENSE para detalhes.
-
-## Suporte
-
-Para dúvidas ou problemas:
-1. Verifique a documentação
-2. Procure por issues existentes
-3. Crie um novo issue com informações detalhadas
-
----
-
-**Desenvolvido com ❤️ para a comunidade educacional**
