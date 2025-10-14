@@ -9,4 +9,7 @@ const createPostSchema = z.object({
     })
 });
 
-module.exports = { createPostSchema };
+//update para permitir atualizações parciais de campos
+const updatePostSchema = createPostSchema.partial();
+
+module.exports = { createPostSchema, updatePostSchema };
