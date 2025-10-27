@@ -1,4 +1,4 @@
-# Portal Educacional API
+# TC Portal Educacional API
 
 API RESTful para gerenciamento de conteúdo educacional através de posts. Desenvolvida com Node.js, Express, MongoDB e validação com Zod.
 
@@ -9,24 +9,23 @@ API RESTful para gerenciamento de conteúdo educacional através de posts. Desen
 - [Pré-requisitos](#pré-requisitos)
 - [Instalação](#instalação)
 - [Configuração](#configuração)
-- [Executando a aplicação](#executando-a-aplicação)
+- [Executando a Aplicação](#executando-a-aplicação)
 - [Referência da API](#referência-da-api)
-- [Estrutura do projeto](#estrutura-do-projeto)
+- [Estrutura do Projeto](#estrutura-do-projeto)
 - [Testes](#testes)
 - [Docker](#docker)
 - [Desenvolvimento](#desenvolvimento)
-- [Integrantes do grupo](#integrantes-do-grupo)
-- [Relato de experiências](#relato-de-experiências)
+- [Contribuição](#contribuição)
 
 ## Visão geral
 
-O Portal Educacional é uma API RESTful projetada para gerenciar conteúdo educacional através de um sistema baseado em posts. A aplicação oferece operações CRUD completas para posts educacionais com validação robusta de dados e capacidades de busca.
+O TC Portal Educacional é uma API RESTful projetada para gerenciar conteúdo educacional através de um sistema baseado em posts. A aplicação oferece operações CRUD completas para posts educacionais com validação robusta de dados e capacidades de busca.
 
 ### Principais funcionalidades
 
 - Operações CRUD completas para posts educacionais
 - Validação de dados usando schemas Zod
-- Consulta textual completa em títulos e conteúdo
+- Busca textual completa em títulos e conteúdo
 - Testes automatizados com Jest
 - Suporte à containerização com Docker
 - Padrão de arquitetura MVC
@@ -52,8 +51,8 @@ src/
 
 - Node.js (versão 18 ou superior)
 - npm ou yarn
-- MongoDB 
-- Docker
+- MongoDB (instalação local ou Atlas)
+- Docker (opcional)
 
 ## Instalação
 
@@ -77,6 +76,20 @@ MONGO_URI=mongodb://localhost:27017/portal_educacional
 PORT=3000
 ```
 
+### Configuração do MongoDB
+
+#### MongoDB Local
+Instale o MongoDB Community Server e inicie o serviço:
+```bash
+mongod
+```
+
+#### MongoDB Atlas (Recomendado)
+1. Crie uma conta gratuita no [MongoDB Atlas](https://www.mongodb.com/atlas)
+2. Crie um cluster gratuito
+3. Obtenha a string de conexão
+4. Atualize o `MONGO_URI` no seu arquivo `.env`
+
 ## Executando a aplicação
 
 ### Modo de desenvolvimento
@@ -94,14 +107,17 @@ npm start
 npm test
 ```
 
-O servidor estará disponível em `http://localhost:3000`.
+O servidor estará disponível em `http://localhost:3000`
 
 ## Referência da API
 
-### URL base
+### URL Base
 ```
 http://localhost:3000
 ```
+
+### Autenticação
+Atualmente não há autenticação implementada.
 
 ### Endpoints
 
@@ -118,7 +134,7 @@ Retorna uma mensagem de boas-vindas.
 
 #### Posts
 
-##### Criar post
+##### Criar Post
 ```http
 POST /posts
 Content-Type: application/json
@@ -136,7 +152,7 @@ Content-Type: application/json
 }
 ```
 
-**Resposta de exempplo (201):**
+**Resposta (201):**
 ```json
 {
   "_id": "string",
@@ -158,12 +174,12 @@ Content-Type: application/json
 }
 ```
 
-##### Obter todos os posts
+##### Obter Todos os Posts
 ```http
 GET /posts
 ```
 
-**Resposta de exemplo (200):**
+**Resposta (200):**
 ```json
 [
   {
@@ -180,7 +196,7 @@ GET /posts
 ]
 ```
 
-##### Consultar post por ID
+##### Obter Post por ID
 ```http
 GET /posts/:id
 ```
@@ -188,7 +204,7 @@ GET /posts/:id
 **Parâmetros:**
 - `id` (string, obrigatório): ObjectId do MongoDB
 
-**Resposta de exemplo (200):**
+**Resposta (200):**
 ```json
 {
   "_id": "string",
@@ -210,7 +226,7 @@ GET /posts/:id
 }
 ```
 
-##### Atualizar post
+##### Atualizar Post
 ```http
 PUT /posts/:id
 Content-Type: application/json
@@ -219,15 +235,15 @@ Content-Type: application/json
 **Parâmetros:**
 - `id` (string, obrigatório): ObjectId do MongoDB
 
-**Corpo da requisição:** Mesmo formato do Criar post
+**Corpo da requisição:** Mesmo formato do Criar Post
 
-**Resposta (200):** Mesmo formato do Obter post por ID
+**Resposta (200):** Mesmo formato do Obter Post por ID
 
 **Respostas de erro:**
 - `400`: Erro de validação
 - `404`: Post não encontrado
 
-##### Deletar post
+##### Deletar Post
 ```http
 DELETE /posts/:id
 ```
@@ -238,7 +254,16 @@ DELETE /posts/:id
 **Resposta (200):**
 ```json
 {
-  "message": "Post deletado com sucesso"
+  "message": "Post deletado com sucesso",
+  "post": {
+    "_id": "string",
+    "titulo": "string",
+    "conteudo": "string",
+    "autor": {
+      "name": "string",
+      "email": "string"
+    }
+  }
 }
 ```
 
@@ -249,20 +274,20 @@ DELETE /posts/:id
 }
 ```
 
-##### Consultar posts por termo
+##### Buscar Posts
 ```http
 GET /posts/search?q={consulta}
 ```
 
 **Parâmetros de query:**
-- `q` (string, obrigatório): Termo de consulta
+- `q` (string, obrigatório): Termo de busca
 
-**Resposta (200):** Array de posts que correspondem aos critérios de consulta
+**Resposta (200):** Array de posts que correspondem aos critérios de busca
 
 **Resposta de erro (400):**
 ```json
 {
-  "error": "parameter de consulta q é obrigatório"
+  "error": "parameter de busca q é obrigatório"
 }
 ```
 
@@ -272,9 +297,9 @@ GET /posts/search?q={consulta}
 |--------|-----------|
 | 200    | OK |
 | 201    | Criado |
-| 400    | Requisição inválida |
-| 404    | Não encontrado |
-| 500    | Erro interno do servidor |
+| 400    | Requisição Inválida |
+| 404    | Não Encontrado |
+| 500    | Erro Interno do Servidor |
 
 ### Validação de dados
 
@@ -323,7 +348,7 @@ tc-portal-educacional/
 - **`src/server.js`**: Ponto de entrada da aplicação, conexão com banco de dados e inicialização do servidor
 - **`src/config/database.js`**: Configuração de conexão com MongoDB usando Mongoose
 - **`src/models/Post.js`**: Modelo Mongoose com definição de schema e timestamps automáticos
-- **`src/controllers/postController.js`**: Lógica de negócio para todas as operações CRUD e funcionalidade de consulta
+- **`src/controllers/postController.js`**: Lógica de negócio para todas as operações CRUD e funcionalidade de busca
 - **`src/routes/postRoutes.js`**: Definições de rotas RESTful para posts
 - **`src/schemas/PostSchema.js`**: Schemas de validação Zod para integridade dos dados
 
@@ -338,10 +363,10 @@ npm test
 
 ### Cobertura de testes
 - Criação e validação de posts
-- Consulta de posts (todos e por ID)
+- Recuperação de posts (todos e por ID)
 - Atualização de posts
 - Exclusão de posts
-- Funcionalidade de consulta textual
+- Funcionalidade de busca textual
 - Tratamento de erros e casos extremos
 
 ### Exemplo de teste
@@ -389,6 +414,11 @@ docker run -p 3000:3000 \
   tc-portal-educacional
 ```
 
+### Serviços Docker
+- **app**: Aplicação Node.js (porta 3000)
+- **mongo**: MongoDB 7.0 (porta 27017)
+- **volumes**: Persistência de dados
+
 ## Desenvolvimento
 
 ### Scripts disponíveis
@@ -398,13 +428,44 @@ npm run dev        # Modo de desenvolvimento com nodemon
 npm test           # Executar suite de testes
 ```
 
-## Integrantes do grupo
+### Diretrizes de desenvolvimento
+- Seguir o padrão de arquitetura MVC
+- Escrever testes para novas funcionalidades
+- Usar Zod para validação de dados
+- Seguir convenções de API RESTful
+- Documentar mudanças na API
 
-- Larissa Cristina de Oliveira Balera
-- Gabrielly Pereira
+### Estilo de código
+- Usar indentação consistente (2 espaços)
+- Seguir padrões JavaScript ES6+
+- Usar nomes significativos para variáveis e funções
+- Adicionar comentários para lógica complexa
 
-## Relato de experiências
+## Contribuição
 
-O desenvolvimento do projeto foi satisfatório, facilitado pela semelhança com atividades realizadas em aula. Apesar de dificuldades iniciais com Docker e GitHub Actions, devido à pouca familiaridade com essas ferramentas, conseguimos superá-las por meio de estudo e prática ao longo do processo. 
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/feature-incrivel`)
+3. Commit suas mudanças (`git commit -m 'Adiciona feature incrível'`)
+4. Push para a branch (`git push origin feature/feature-incrivel`)
+5. Abra um Pull Request
 
-Essa experiência reforçou a importância da prática contínua, da colaboração entre os membros e da busca por soluções de forma autônoma e proativa, elementos que foram essenciais para o bom andamento e conclusão do trabalho.
+### Diretrizes para pull requests
+- Incluir testes para nova funcionalidade
+- Atualizar documentação conforme necessário
+- Seguir o estilo de código existente
+- Fornecer descrição clara das mudanças
+
+## Licença
+
+Este projeto está licenciado sob a Licença ISC - veja o arquivo LICENSE para detalhes.
+
+## Suporte
+
+Para dúvidas ou problemas:
+1. Verifique a documentação
+2. Procure por issues existentes
+3. Crie um novo issue com informações detalhadas
+
+---
+
+**Desenvolvido com ❤️ para a comunidade educacional**

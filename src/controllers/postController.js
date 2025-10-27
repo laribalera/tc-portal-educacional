@@ -50,7 +50,7 @@ const deletePost = async (req, res) => {
       return res.status(404).json({ error: 'Post não encontrado' });
     }
     
-    res.json({ message: 'Post deletado com sucesso' });
+    res.json({ message: 'Post deletado com sucesso', post });
   } catch (error) {
     res.status(500).json({ error: 'Erro ao deletar post' });
   }
