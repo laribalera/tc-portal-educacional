@@ -85,6 +85,8 @@ const searchPostQuery = async (req, res) => {
       $or: [
         { titulo: { $regex: q, $options: 'i' } },
         { conteudo: { $regex: q, $options: 'i' } },
+        { materia: { $regex: q, $options: 'i' } },
+        { tags: { $regex: q, $options: 'i' } }
       ],
     });
 
