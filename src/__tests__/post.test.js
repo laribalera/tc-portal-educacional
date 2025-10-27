@@ -29,6 +29,8 @@ describe("Testes completos para a rota /posts", () => {
     const novoPost = {
       titulo: "primeiro post",
       conteudo: "Conteúdo de teste do post",
+      materia: "teste",
+      tags: ["tag1", "tag2"],
       autor: { name: "Larissa Balera", email: "larissa@email.com" }
     };
 
@@ -52,6 +54,8 @@ describe("Testes completos para a rota /posts", () => {
     await Post.create({
       titulo: "post 1",
       conteudo: "conteúdo 1",
+      materia: "teste",
+      tags: ["tag1", "tag2"],
       autor: { name: "Teste", email: "teste@email.com" }
     });
 
@@ -67,6 +71,8 @@ describe("Testes completos para a rota /posts", () => {
     const post = await Post.create({
       titulo: "post teste",
       conteudo: "conteúdo teste",
+      materia: "teste",
+      tags: ["tag1", "tag2"],
       autor: { name: "Larissa", email: "larissa@email.com" }
     });
 
@@ -91,6 +97,8 @@ describe("Testes completos para a rota /posts", () => {
     const post = await Post.create({
       titulo: "post a excluir",
       conteudo: "conteúdo",
+      materia: "teste",
+      tags: ["tag1", "tag2"],
       autor: { name: "Larissa", email: "larissa@email.com" }
     });
 
@@ -114,6 +122,8 @@ describe("Testes completos para a rota /posts", () => {
     await Post.create({
       titulo: "teste busca",
       conteudo: "conteúdo teste",
+      materia: "teste",
+      tags: ["tag1", "tag2"],
       autor: { name: "Larissa", email: "larissa@email.com" }
     });
 

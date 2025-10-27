@@ -1,5 +1,5 @@
 const Post = require('../models/Post');
-const { createPostSchema } = require('../schemas/PostSchema');
+const { createPostSchema, updatePostSchema } = require('../schemas/PostSchema');
 
 
 // controller para criar post novo
@@ -60,10 +60,13 @@ const deletePost = async (req, res) => {
 // controller para dar update em um post
 const updatePost = async (req, res) => {
   try {
-    const data = createPostSchema.parse(req.body);
+    const data = updatePostSchema.parse(req.body);
     const post = await Post.findByIdAndUpdate(req.params.id, data, { new: true });
     if (!post) return res.status(404).json({ error: 'post nao encontrado' });
+
+    res.json({ message: 'Post atualizado com sucesso', post });
     res.json(post);
+    
   } catch (error) {
     res.status(400).json({ error: error.errors || error.message });
   }
@@ -78,11 +81,12 @@ const searchPostQuery = async (req, res) => {
     
     }
     
-
     const posts = await Post.find({
       $or: [
         { titulo: { $regex: q, $options: 'i' } },
         { conteudo: { $regex: q, $options: 'i' } },
+        { materia: { $regex: q, $options: 'i' } },
+        { tags: { $regex: q, $options: 'i' } }
       ],
     });
 
