@@ -1,3 +1,6 @@
+
+> Nota: A estrutura do corpo das requisições foi alterada após a entrega do tech challenge - fase 2 mesmo sem a avaliação do professor ter sido feita. Esta alteração foi para que o projeto se adaptasse melhor ao desenvolvimento em preogresso do front end da aplicação.  
+
 # TC Portal Educacional API
 
 API RESTful para gerenciamento de conteúdo educacional através de posts. Desenvolvida com Node.js, Express, MongoDB e validação com Zod.
@@ -145,6 +148,8 @@ Content-Type: application/json
 {
   "titulo": "string (mínimo 3 caracteres)",
   "conteudo": "string (mínimo 10 caracteres)",
+  "materia": "string (mínimo de 1 caracteres)",
+  "tags": "lista de strings",
   "autor": {
     "name": "string (obrigatório)",
     "email": "string (formato de email válido)"
@@ -158,6 +163,8 @@ Content-Type: application/json
   "_id": "string",
   "titulo": "string",
   "conteudo": "string",
+  "materia": "string (mínimo de 1 caracteres)",
+  "tags": "lista de strings",
   "autor": {
     "name": "string",
     "email": "string"
@@ -186,6 +193,8 @@ GET /posts
     "_id": "string",
     "titulo": "string",
     "conteudo": "string",
+    "materia": "string (mínimo de 1 caracteres)",
+    "tags": "lista de strings",
     "autor": {
       "name": "string",
       "email": "string"
@@ -210,6 +219,8 @@ GET /posts/:id
   "_id": "string",
   "titulo": "string",
   "conteudo": "string",
+  "materia": "string (mínimo de 1 caracteres)",
+  "tags": "lista de strings",
   "autor": {
     "name": "string",
     "email": "string"
@@ -259,6 +270,8 @@ DELETE /posts/:id
     "_id": "string",
     "titulo": "string",
     "conteudo": "string",
+    "materia": "string (mínimo de 1 caracteres)",
+    "tags": "lista de strings",
     "autor": {
       "name": "string",
       "email": "string"
@@ -309,6 +322,8 @@ A API usa Zod para validação de requisições. Todos os endpoints validam dado
 {
   titulo: string (mínimo 3 caracteres),
   conteudo: string (mínimo 10 caracteres),
+  "materia": string (mínimo de 1 caracteres),
+  "tags": [lista de strings],
   autor: {
     name: string (obrigatório),
     email: string (formato de email válido)
@@ -376,6 +391,8 @@ describe('POST /posts', () => {
     const novoPost = {
       titulo: 'Post de Teste',
       conteudo: 'Este é o conteúdo do post de teste',
+      materia: 'Teste',
+      tags: ['tag1', 'tag2'],
       autor: { name: 'Autor de Teste', email: 'teste@exemplo.com' }
     };
 
