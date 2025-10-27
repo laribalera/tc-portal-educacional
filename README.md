@@ -1,5 +1,5 @@
 
-> Nota: A estrutura do corpo das requisições foi alterada após a entrega do tech challenge - fase 2 mesmo sem a avaliação do professor ter sido feita. Esta alteração foi para que o projeto se adaptasse melhor ao desenvolvimento em preogresso do front end da aplicação.  
+> Nota: A estrutura do corpo das requisições foi alterada após a entrega do tech challenge - fase 2 mesmo sem a avaliação do professor ter sido feita. Esta alteração foi para que o projeto se adaptasse melhor ao desenvolvimento em progresso do front end da aplicação. Para referencia de como o projeto estava anteriormente, consultar a branch [/feature/documentation](https://github.com/laribalera/tc-portal-educacional/tree/feature/documentation)
 
 # TC Portal Educacional API
 
