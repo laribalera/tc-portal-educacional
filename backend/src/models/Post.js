@@ -6,9 +6,10 @@ const PostSchema = new mongoose.Schema({
     conteudo: {type: String, required: true},
     materia: {type: String, required: true},
     tags: [{type: String}],
-    autor: {
-    name: { type: String, required: true },
-    email: { type: String, required: true },
+    autor: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Professor', 
+    required: true
   }
 
 }, {timestamps: true}); // vai ser usado em createAt e updateAt e preenchido automaticamente

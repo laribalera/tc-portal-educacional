@@ -31,14 +31,14 @@ describe("Testes completos para a rota /posts", () => {
       conteudo: "Conteúdo de teste do post",
       materia: "teste",
       tags: ["tag1", "tag2"],
-      autor: { name: "Larissa Balera", email: "larissa@email.com" }
+      autor: "69015af8c0bcdf76266a1eec",
     };
 
     const res = await request(app).post("/posts").send(novoPost);
 
     expect(res.status).toBe(201);
     expect(res.body.titulo).toBe("primeiro post");
-    expect(res.body.autor.name).toBe("Larissa Balera");
+    expect(res.body.autor).toBe("69015af8c0bcdf76266a1eec");
   });
 
   // POST /posts - validação de erro por campos obrigatórios
@@ -56,7 +56,7 @@ describe("Testes completos para a rota /posts", () => {
       conteudo: "conteúdo 1",
       materia: "teste",
       tags: ["tag1", "tag2"],
-      autor: { name: "Teste", email: "teste@email.com" }
+      autor: "69015af8c0bcdf76266a1eec"
     });
 
     const res = await request(app).get("/posts");
@@ -73,7 +73,7 @@ describe("Testes completos para a rota /posts", () => {
       conteudo: "conteúdo teste",
       materia: "teste",
       tags: ["tag1", "tag2"],
-      autor: { name: "Larissa", email: "larissa@email.com" }
+      autor: "69015af8c0bcdf76266a1eec"
     });
 
     const res = await request(app).get(`/posts/${post._id}`);
@@ -99,7 +99,7 @@ describe("Testes completos para a rota /posts", () => {
       conteudo: "conteúdo",
       materia: "teste",
       tags: ["tag1", "tag2"],
-      autor: { name: "Larissa", email: "larissa@email.com" }
+      autor: "69015af8c0bcdf76266a1eec"
     });
 
     const res = await request(app).delete(`/posts/${post._id}`);
@@ -124,7 +124,7 @@ describe("Testes completos para a rota /posts", () => {
       conteudo: "conteúdo teste",
       materia: "teste",
       tags: ["tag1", "tag2"],
-      autor: { name: "Larissa", email: "larissa@email.com" }
+      autor: "69015af8c0bcdf76266a1eec"
     });
 
     const res = await request(app).get("/posts/search?q=busca");
