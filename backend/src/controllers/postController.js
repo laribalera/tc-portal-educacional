@@ -17,12 +17,16 @@ const createPost = async (req, res) => {
 //controller para pegar todos os posts
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 }); // Ordena por data de criação (mais recentes primeiro)
+    const posts = await Post.find()
+      .populate("autor", "name email disciplinas") 
+      .sort({ createdAt: -1 }); // mais recentes primeiro
+
     res.json(posts);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar posts' });
+    console.error("Erro ao buscar posts:", error);
+    res.status(500).json({ error: "Erro ao buscar posts" });
   }
-};
+}
 
 
 // controller para pegar um post com id
