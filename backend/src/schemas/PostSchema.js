@@ -6,7 +6,9 @@ const createPostSchema = z.object({
     materia: z.string().min(1, "a matéria é obrigatória"),
     tags: z.array(z.string()),
     autor: z.string().min(1, "autor é obrigatório")
-});
+},
+{ timestamps: true }
+);
 
 //update para permitir atualizações parciais de campos
 const updatePostSchema = createPostSchema.partial();
