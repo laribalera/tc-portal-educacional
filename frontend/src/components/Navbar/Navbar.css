@@ -1,0 +1,165 @@
+.pe-navbar {
+    background-color: #7B1F3C;
+    border-bottom: none;
+    font-family: "Lexend", sans-serif;
+    color: #F1F2D5;
+}
+
+
+/* container com padding lateral (resolve “colado no final”) */
+.pe-navbar__inner {
+    color: #F1F2D5;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 16px 24px;
+    /* <- espaço à direita e esquerda */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Brand (logo + título) */
+.pe-navbar__brand {
+    color: #F1F2D5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.pe-navbar__logo {
+    width: 50px;
+    height: auto;
+    display: block;
+}
+
+.pe-navbar__title {
+    color: #F1F2D5;
+    font-weight: 700;
+    color: inherit;
+    white-space: nowrap;
+}
+
+/* Toggle (hamburger) */
+.pe-navbar__toggle {
+    margin-left: auto;
+    display: none;
+    /* aparece no mobile */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: transparent;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.pe-navbar__toggleBar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: 4px 0;
+    background: currentColor;
+}
+
+/* Menu (desktop) */
+.pe-navbar__menu {
+    flex: 1;
+    /* ocupa o espaço restante */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* MAIS espaço entre título e menus */
+    margin-left: 24px;
+    /* afasta o menu do brand */
+}
+
+.pe-navbar__links,
+.pe-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Links */
+.pe-navbar__link {
+    color: #F1F2D5;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: inherit;
+    opacity: 0.9;
+}
+
+.pe-navbar__link:hover {
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+/* NavLink ativo (React Router) */
+.pe-navbar__link.active {
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.06);
+    text-decoration: none;
+}
+
+/* Login com “respiro” extra na direita */
+.pe-navbar__login {
+    margin-right: 6px;
+    /* pequeno espaço antes do fim */
+}
+
+/* Botão sair */
+.pe-navbar__button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    cursor: pointer;
+}
+
+.pe-navbar__button:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* Mobile */
+@media (max-width: 991px) {
+    .pe-navbar__inner {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 14px 18px;
+        /* mantém padding lateral no mobile */
+    }
+
+    .pe-navbar__toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pe-navbar__menu {
+        flex-basis: 100%;
+        display: none;
+        margin-left: 0;
+
+        padding-top: 10px;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .pe-navbar__menu.is-open {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .pe-navbar__links,
+    .pe-navbar__actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .pe-navbar__link {
+        width: fit-content;
+    }
+}

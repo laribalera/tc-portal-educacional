@@ -1,0 +1,219 @@
+/* ===========================
+   FONTS
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;')
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lexend:wght@100..900&display=swap');
+
+
+
+/* ===========================
+   RESET / BASE
+=========================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f7f7f5;
+  color: #2b2b2b;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===========================
+   LINKS
+=========================== */
+a {
+  color: #7b1e3a;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===========================
+   CONTAINERS
+=========================== */
+main {
+  padding: 24px 16px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+/* ===========================
+   HEADINGS
+=========================== */
+h1, h2, h3, h4 {
+  margin-top: 0;
+  color: #3a0f1e;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+/* ===========================
+   FORMULÁRIOS
+=========================== */
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #7b1e3a;
+  box-shadow: 0 0 0 2px rgba(123, 30, 58, 0.15);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ===========================
+   BOTÕES
+=========================== */
+button {
+  background-color: #7b1e3a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #64172f;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Botão secundário */
+button.secondary {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button.secondary:hover {
+  background-color: #d0d0d0;
+}
+
+/* ===========================
+   CARDS
+=========================== */
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.card + .card {
+  margin-top: 16px;
+}
+
+/* ===========================
+   LISTAGEM DE POSTS
+=========================== */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.post-card h3 {
+  margin-bottom: 8px;
+}
+
+.post-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* ===========================
+   DASHBOARD
+=========================== */
+.dashboard-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.dashboard-row + .dashboard-row {
+  margin-top: 12px;
+}
+
+/* ===========================
+   ESTADOS
+=========================== */
+.loading {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.error {
+  background-color: #fdecea;
+  color: #611a15;
+  border: 1px solid #f5c6cb;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.empty {
+  opacity: 0.7;
+}
+
+/* ===========================
+   RESPONSIVO
+=========================== */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  main {
+    padding: 16px 12px;
+  }
+
+  header nav {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
