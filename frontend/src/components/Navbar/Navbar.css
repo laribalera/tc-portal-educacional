@@ -114,7 +114,7 @@
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.12);
-    background: #fff;
+    background: #7B1F3C;
     cursor: pointer;
 }
 
@@ -161,5 +161,22 @@
 
     .pe-navbar__link {
         width: fit-content;
+    }
+}
+
+.pe-navbar__hello {
+    color: #f1f2d5;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0.95;
+}
+
+/* no mobile, faz a saudação ocupar linha inteira e ficar alinhada com os itens */
+@media (max-width: 991px) {
+    .pe-navbar__hello {
+        width: 100%;
+        padding: 8px 0;
+        border-top: 1px solid rgba(241, 242, 213, 0.18);
+        margin-top: 6px;
     }
 }
