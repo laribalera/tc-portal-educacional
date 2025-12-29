@@ -1,0 +1,26 @@
+.headers {
+  font-family: 'Lexend', sans-serif;
+  color: #7B1F3C;
+  margin: 0 0 12px;
+}
+
+/* Estilos por nível */
+.headers-h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.headers-h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.headers-h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.headers-h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

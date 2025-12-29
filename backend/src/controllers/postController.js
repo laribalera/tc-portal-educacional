@@ -6,8 +6,11 @@ const { createPostSchema, updatePostSchema } = require('../schemas/PostSchema');
 const createPost = async (req, res) => {
   try {
     const data = createPostSchema.parse(req.body);
+
     const newPost = await Post.create(data);
-    res.status(201).json(newPost);
+    const populated = await newPost.populate("autor", "name email disciplinas");
+
+    res.status(201).json(populated);
   } catch (error) {
     res.status(400).json({ error: error.errors || error.message });
   }
@@ -32,7 +35,8 @@ const getAllPosts = async (req, res) => {
 // controller para pegar um post com id
 const getPostById = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id)
+      .populate("autor", "name email disciplinas");
     
     if (!post) {
       return res.status(404).json({ error: 'Post não encontrado' });
@@ -65,12 +69,13 @@ const deletePost = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     const data = updatePostSchema.parse(req.body);
-    const post = await Post.findByIdAndUpdate(req.params.id, data, { new: true });
+
+    const post = await Post.findByIdAndUpdate(req.params.id, data, { new: true })
+      .populate("autor", "name email disciplinas");
+
     if (!post) return res.status(404).json({ error: 'post nao encontrado' });
 
-    res.json({ message: 'Post atualizado com sucesso', post });
     res.json(post);
-    
   } catch (error) {
     res.status(400).json({ error: error.errors || error.message });
   }
@@ -79,20 +84,19 @@ const updatePost = async (req, res) => {
 // controller para fazer query search 
 const searchPostQuery = async (req, res) => {
   try {
-    const { q } = req.query;    
-    if (!q) {
-      return res.status(400).json({ error: 'parameter de busca q é obrigatório' });
-    
-    }
-    
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ error: 'parameter de busca q é obrigatório' });
+
     const posts = await Post.find({
       $or: [
         { titulo: { $regex: q, $options: 'i' } },
         { conteudo: { $regex: q, $options: 'i' } },
         { materia: { $regex: q, $options: 'i' } },
-        { tags: { $regex: q, $options: 'i' } }
+        { tags: { $regex: q, $options: 'i' } },
       ],
-    });
+    })
+      .populate("autor", "name email disciplinas")
+      .sort({ createdAt: -1 });
 
     res.json(posts);
   } catch (error) {
@@ -100,6 +104,7 @@ const searchPostQuery = async (req, res) => {
     res.status(500).json({ error: 'erro ao buscar posts', details: error.message });
   }
 };
+
 
 
 

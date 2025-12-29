@@ -1,0 +1,38 @@
+.home-carousel-img {
+  height: 240px;      /* mobile */
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .home-carousel-img {
+    height: 420px;    /* desktop */
+  }
+}
+
+.home-carousel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.25) 55%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+}
+
+.carousel-caption {
+  z-index: 2; /* garante que fica acima do overlay */
+}
+
+
+/* Remove fundo no hover das setas */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: transparent !important;
+}
+
+/* Remove fundo no hover dos indicadores (bolinhas) */
+.carousel-indicators button:hover {
+  background-color: currentColor !important;
+  opacity: 1;
+}
