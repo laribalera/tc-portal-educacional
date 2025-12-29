@@ -1,0 +1,25 @@
+.app-breadcrumbs {
+  padding: 10px 12px;
+  opacity: 0.60;
+
+}
+
+.app-breadcrumbs .breadcrumb-item a {
+  text-decoration: none;
+  color: #7B1F3C;
+  font-weight: 600;
+}
+
+.app-breadcrumbs .breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.app-breadcrumbs .breadcrumb-item.active span {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+}
+
+/* separador */
+.app-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
+  opacity: 0.5;
+}

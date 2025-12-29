@@ -1,0 +1,102 @@
+/* Wrapper geral */
+#professoresAccordion {
+  --prof-accent: #7b1f3c;       /* vinho */
+  --prof-bg: #ffffff;
+  --prof-border: rgba(0, 0, 0, 0.08);
+  --prof-muted: #6c757d;
+}
+
+/* Card do accordion */
+#professoresAccordion .accordion-item {
+  border: 1px solid var(--prof-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--prof-bg);
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+#professoresAccordion .accordion-item:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Header */
+#professoresAccordion .accordion-button {
+  background-color: var(--prof-bg);
+  color: #212529;
+  font-weight: 600;
+  padding: 16px 18px;
+  box-shadow: none;
+}
+
+#professoresAccordion .accordion-button:hover {
+  background-color: rgba(123, 31, 60, 0.04);
+}
+
+/* Estado aberto */
+#professoresAccordion .accordion-button:not(.collapsed) {
+  background-color: rgba(123, 31, 60, 0.06);
+  color: var(--prof-accent);
+}
+
+#professoresAccordion .accordion-button:not(.collapsed) span:last-child {
+  color: var(--prof-muted);
+}
+
+/* Remove foco azul padrão */
+#professoresAccordion .accordion-button:focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+/* Ícone seta */
+#professoresAccordion .accordion-button::after {
+  filter: opacity(0.7);
+}
+
+/* Corpo */
+#professoresAccordion .accordion-body {
+  padding: 18px;
+  background-color: #fafafa;
+}
+
+/* Lista de posts */
+#professoresAccordion .list-group {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#professoresAccordion .list-group-item {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 12px 14px;
+}
+
+#professoresAccordion .list-group-item:last-child {
+  border-bottom: none;
+}
+
+/* Título do post */
+#professoresAccordion .list-group-item a {
+  color: #212529;
+  text-decoration: none;
+}
+
+#professoresAccordion .list-group-item a:hover {
+  text-decoration: underline;
+}
+
+/* Data */
+#professoresAccordion .list-group-item .text-muted {
+  font-size: 0.8rem;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  #professoresAccordion .accordion-button {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
