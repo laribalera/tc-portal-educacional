@@ -1,6 +1,6 @@
 import { api, getApiErrorMessage } from "./api";
 
-const LOGIN_PATH = "/professor/login";
+const LOGIN_PATH = "/professores/login";
 
 export async function loginProfessor({ email, password }) {
   try {

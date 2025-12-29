@@ -95,3 +95,56 @@ h1, h2, h3 {
   padding: 0 3px;
 }
 
+.dash {
+  padding: 16px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.dash-subtitle {
+  margin: 0 0 16px 0;
+  opacity: 0.9;
+}
+
+.dash-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.dash-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dash-card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.dash-card-actions {
+  flex: 0 0 auto;
+}
+
+.dash-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0 8px;
+}
+
+.dash-tags {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}

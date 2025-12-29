@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import ErrorState from "../../components/ErrorState/ErrorState";
 import Headers from "../../components/Headers/Headers";
+import ConfirmDialog from "../../components/ConfirmDialogue/ConfirmDialogue";
 
 import { getPosts, deletePost } from "../../services/posts.service";
 import { getMeProfessor } from "../../services/professores.service";
@@ -20,6 +21,25 @@ export default function Dashboard() {
 
   const [status, setStatus] = useState("loading");
   const [error, setError] = useState(null);
+
+  // controle do dialog
+  const [confirm, setConfirm] = useState({
+    open: false,
+    postId: null,
+    title: "",
+  });
+
+  const openConfirm = (postId, title) => {
+    setConfirm({
+      open: true,
+      postId,
+      title: title || "esta postagem",
+    });
+  };
+
+  const closeConfirm = () => {
+    setConfirm({ open: false, postId: null, title: "" });
+  };
 
   const fetchAll = async () => {
     try {
@@ -38,10 +58,9 @@ export default function Dashboard() {
   };
 
   const meusPosts = useMemo(() => {
-    if (!me?.id) return [];
-    return posts.filter(
-      (p) => String(getAutorId(p)) === String(me.id)
-    );
+    const myId = me?.id || me?._id;
+    if (!myId) return [];
+    return posts.filter((p) => String(getAutorId(p)) === String(myId));
   }, [posts, me]);
 
   const tagsUsadas = useMemo(() => {
@@ -52,27 +71,31 @@ export default function Dashboard() {
       for (const t of tags) {
         const tag = String(t || "").trim();
         if (!tag) continue;
-        const key = tag.toLowerCase(); // normaliza (Matemática == matemática)
+        const key = tag.toLowerCase();
         counts.set(key, { label: tag, count: (counts.get(key)?.count || 0) + 1 });
       }
     }
 
-    return Array.from(counts.values())
-      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+    return Array.from(counts.values()).sort(
+      (a, b) => b.count - a.count || a.label.localeCompare(b.label)
+    );
   }, [meusPosts]);
 
-
-
   const handleDelete = async (id) => {
-    const ok = window.confirm("Tem certeza que deseja excluir esta postagem?");
-    if (!ok) return;
-
     try {
       await deletePost(id);
       await fetchAll();
     } catch (e) {
       alert(e?.message || "Falha ao excluir post.");
     }
+  };
+
+  const handleConfirmDelete = async () => {
+    const id = confirm.postId;
+    if (!id) return;
+
+    closeConfirm();
+    await handleDelete(id);
   };
 
   useEffect(() => {
@@ -82,9 +105,21 @@ export default function Dashboard() {
 
   const total = String(meusPosts?.length ?? 0);
 
-
   return (
     <main className="dashboard container py-4">
+      {/* MODAL CONFIRMAÇÃO */}
+      {confirm.open ? (
+        <ConfirmDialog
+          title="Excluir postagem"
+          message={`Tem certeza que deseja excluir "${confirm.title}"? Essa ação não pode ser desfeita.`}
+          confirmLabel="Sim, excluir"
+          cancelLabel="Cancelar"
+          variant="danger"
+          onConfirm={handleConfirmDelete}
+          onCancel={closeConfirm}
+        />
+      ) : null}
+
       <div className="dashboard__topbar">
         <Headers as="h1">Dashboard do Professor</Headers>
 
@@ -100,7 +135,6 @@ export default function Dashboard() {
             <div className="dashboard__kpiValue">
               <Headers as="h1">{total}</Headers>
             </div>
-
           </div>
         </div>
 
@@ -108,7 +142,9 @@ export default function Dashboard() {
           <p className="dashboard__kpiLabel mb-1">Tags utilizadas</p>
 
           {tagsUsadas.length === 0 ? (
-            <p className="text-body-secondary mb-0">Você ainda não usou tags em postagens.</p>
+            <p className="text-body-secondary mb-0">
+              Você ainda não usou tags em postagens.
+            </p>
           ) : (
             <div className="dashboard__tagsCloud mt-2">
               {tagsUsadas.map((t) => (
@@ -116,13 +152,11 @@ export default function Dashboard() {
                   <span className="dashboard__tagText">{t.label}</span>
                   <span className="dashboard__tagCount">{t.count}</span>
                 </span>
-
               ))}
             </div>
           )}
         </div>
       </section>
-
 
       {status === "loading" ? <Loading /> : null}
       {status === "error" ? <ErrorState message={error} onRetry={fetchAll} /> : null}
@@ -144,18 +178,30 @@ export default function Dashboard() {
                     <th className="text-end">Ações</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {meusPosts.map((p) => {
                     const id = p.id || p._id;
+                    const titulo = p.titulo || p.title || "Sem título";
+
                     return (
                       <tr key={id}>
-                        <td>{p.titulo || p.title || "Sem título"}</td>
+                        <td>{titulo}</td>
+
                         <td className="text-end">
                           <div className="btn-group">
-                            <Link className="btn btn-outline-secondary btn-sm" to={`/posts/${id}/edit`}>
+                            <Link
+                              className="btn btn-outline-secondary btn-sm"
+                              to={`/posts/${id}/edit`}
+                            >
                               Editar
                             </Link>
-                            <button className="btn btn-outline-danger btn-sm" onClick={() => handleDelete(id)}>
+
+                            <button
+                              type="button"
+                              className="btn btn-outline-danger btn-sm"
+                              onClick={() => openConfirm(id, titulo)}
+                            >
                               Excluir
                             </button>
                           </div>
