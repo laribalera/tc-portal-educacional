@@ -1,21 +1,26 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/database');
-const postRoutes = require('./routes/postRoutes');
-const professorRoutes = require('./routes/professorRoutes')
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const postRoutes = require("./routes/postRoutes");
+const professorRoutes = require("./routes/professorRoutes");
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+const allowedOrigins = ["http://localhost:5173", "http://localhost:8080"];
 
-app.use(express.json()); 
-app.use("/api/posts", require("./routes/postRoutes"));
-app.use('/api/professores', professorRoutes);
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
+app.use(express.json());
+app.use("/api/posts", postRoutes);
+app.use("/api/professores", professorRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Seja Bem-Vindo ao Portal Educacional');
-    });
+app.get("/", (req, res) => {
+  res.send("Seja Bem-Vindo ao Portal Educacional");
+});
 
 module.exports = app;
