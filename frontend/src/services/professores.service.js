@@ -1,10 +1,12 @@
 import { api, getApiErrorMessage } from "./api";
 
+// limitando a 10 últimos posts para evitar payloads grandes na listagem
 const PATHS = {
   list: "/professores",
   postsByProfessor: (professorId) => `/posts?authorId=${professorId}&limit=10`,
 };
 
+// busca todos os professores
 export async function getProfessores() {
   try {
     const { data } = await api.get(PATHS.list);
@@ -14,6 +16,7 @@ export async function getProfessores() {
   }
 }
 
+// busca os últimos posts de um professor específico
 export async function getUltimosPostsDoProfessor(professorId) {
   try {
     const { data } = await api.get(PATHS.postsByProfessor(professorId));

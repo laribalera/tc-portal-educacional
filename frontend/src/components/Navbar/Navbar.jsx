@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import "./Navbar.css";
 
 export default function Navbar() {
-  const { isAuthenticated, logout } = useAuth();
+  // pegando estado de autenticação (objeto inteiro pra renderizar nome do professor)
+  const auth = useAuth();
+  const { isAuthenticated, logout, professor } = auth;
+
   const [isOpen, setIsOpen] = useState(false);
 
-  // Fecha o menu ao voltar para desktop
+  // fechar menu ao redimensionar 
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 992) setIsOpen(false); // breakpoint "lg"
@@ -23,7 +26,11 @@ export default function Navbar() {
       <nav className="pe-navbar__inner" aria-label="Navegação principal">
         {/* Logo + Nome */}
         <Link to="/" className="pe-navbar__brand" onClick={closeMenu}>
-          <img className="pe-navbar__logo" src="/logo2.png" alt="Logo" />
+          <img
+            className="pe-navbar__logo"
+            src="/logo2.png"
+            alt="Logo do Portal Educacional"
+          />
           <span className="pe-navbar__title">Portal Educacional</span>
         </Link>
 
@@ -46,10 +53,16 @@ export default function Navbar() {
           id="pe-navbar-menu"
           className={`pe-navbar__menu ${isOpen ? "is-open" : ""}`}
         >
+          {/* Links */}
           <div className="pe-navbar__links">
-            <NavLink to="/" className="pe-navbar__link" onClick={closeMenu}>
+            <NavLink
+              to="/"
+              className="pe-navbar__link"
+              onClick={closeMenu}
+            >
               Home
             </NavLink>
+
             <NavLink
               to="/professores"
               className="pe-navbar__link"
@@ -59,6 +72,7 @@ export default function Navbar() {
             </NavLink>
           </div>
 
+          {/* Ações */}
           <div className="pe-navbar__actions">
             {!isAuthenticated ? (
               <NavLink
@@ -70,6 +84,14 @@ export default function Navbar() {
               </NavLink>
             ) : (
               <>
+                {/* Nome do professor */}
+                <span
+                  className="pe-navbar__hello"
+                  title={professor?.email || ""}
+                >
+                  Olá, {professor?.name || "Professor(a)"}!
+                </span>
+
                 <NavLink
                   to="/dashboard"
                   className="pe-navbar__link"
@@ -79,12 +101,12 @@ export default function Navbar() {
                 </NavLink>
 
                 <button
+                  type="button"
+                  className="pe-navbar__button"
                   onClick={() => {
                     logout();
                     closeMenu();
                   }}
-                  type="button"
-                  className="pe-navbar__button"
                 >
                   Sair
                 </button>

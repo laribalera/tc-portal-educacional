@@ -1,15 +1,15 @@
 import { api, getApiErrorMessage } from "./api";
 
 /**
- * Ajuste os endpoints conforme seu backend.
- * Aqui eu assumi um padrão REST:
+ * Endpoints para posts (artigos)
  * - GET    /posts
  * - GET    /posts/:id
- * - GET    /posts/search?term=xxx   (ou /posts?search=xxx)
- * - POST   /posts                   (protegido)
- * - PUT    /posts/:id               (protegido)
- * - DELETE /posts/:id               (protegido)
+ * - GET    /posts/search?q=xxx
+ * - POST   /posts                  
+ * - PUT    /posts/:id             
+ * - DELETE /posts/:id              
  */
+
 const PATHS = {
   list: "/posts",
   details: (id) => `/posts/${id}`,
@@ -19,7 +19,7 @@ const PATHS = {
   remove: (id) => `/posts/${id}`,
 };
 
-// Normaliza diferenças entre id/_id e campos
+// normaliza diferenças entre id/_id e campos
 function mapPost(p) {
   if (!p) return p;
 
@@ -46,7 +46,7 @@ function mapPost(p) {
     p.description ||
     (conteudo ? conteudo.slice(0, 140) + "..." : "");
 
-  // ✅ autor padronizado para telas que esperam p.autor (objeto)
+  // autor padronizado para telas que esperam p.autor (objeto)
   const autor =
     autorObj ||
     (typeof autorRaw === "string" ? { _id: autorRaw, id: autorRaw } : null);
@@ -55,7 +55,6 @@ function mapPost(p) {
     // id normalizado
     id: p.id || p._id,
 
-    // ✅ mantém compatibilidade com cards antigos
     title: p.title || p.titulo,
     content: p.content || p.conteudo,
     subject: p.subject || p.materia,
@@ -66,7 +65,7 @@ function mapPost(p) {
         ? autorRaw
         : (autorRaw?.name || autorRaw?.email || ""),
 
-    // ✅ novos campos para a página de professores (sem quebrar nada)
+    // campos para a página de professores
     autor,       // objeto com _id/name/disciplinas (ou pelo menos _id)
     autorObj,    // se precisar em algum lugar
     titulo,
@@ -77,9 +76,6 @@ function mapPost(p) {
     updatedAt: p.updatedAt,
   };
 }
-
-
-
 
 
 export async function getPosts() {
