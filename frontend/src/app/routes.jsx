@@ -6,6 +6,8 @@ import Login from "../pages/Login/Login";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import PostEditor from "../pages/PostEditor/PostEditor";
 import ProtectedRoute from "./ProtectedRoute";
+import Professores from "../pages/Professores/Professores";
+
 
 export function AppRoutes() {
   return (
@@ -42,6 +44,8 @@ export function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="/professores" element={<Professores />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

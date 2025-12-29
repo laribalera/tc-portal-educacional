@@ -23,37 +23,63 @@ const PATHS = {
 function mapPost(p) {
   if (!p) return p;
 
-  const authorObj = p.autor || p.author;
+  const autorRaw = p.autor ?? p.author ?? null;
+
+  const autorObj =
+    autorRaw && typeof autorRaw === "object"
+      ? {
+          _id: autorRaw._id || autorRaw.id,
+          id: autorRaw._id || autorRaw.id,
+          name: autorRaw.name,
+          email: autorRaw.email,
+          disciplinas: Array.isArray(autorRaw.disciplinas) ? autorRaw.disciplinas : [],
+        }
+      : null;
+
+  const titulo = p.titulo ?? p.title ?? "";
+  const conteudo = p.conteudo ?? p.content ?? "";
+  const materia = p.materia ?? p.subject ?? "";
+  const tags = Array.isArray(p.tags) ? p.tags : [];
+
+  const summary =
+    p.summary ||
+    p.description ||
+    (conteudo ? conteudo.slice(0, 140) + "..." : "");
+
+  // ✅ autor padronizado para telas que esperam p.autor (objeto)
+  const autor =
+    autorObj ||
+    (typeof autorRaw === "string" ? { _id: autorRaw, id: autorRaw } : null);
 
   return {
+    // id normalizado
     id: p.id || p._id,
 
-    // seu backend está em pt-br:
+    // ✅ mantém compatibilidade com cards antigos
     title: p.title || p.titulo,
     content: p.content || p.conteudo,
-
-    // pode ser string ou objeto
+    subject: p.subject || p.materia,
+    tags,
+    summary,
     author:
-      typeof authorObj === "string"
-        ? authorObj
-        : (authorObj?.name || authorObj?.email || ""),
+      typeof autorRaw === "string"
+        ? autorRaw
+        : (autorRaw?.name || autorRaw?.email || ""),
 
-    authorObj: typeof authorObj === "object" ? authorObj : null,
-
-    subject: p.materia || p.subject,
-    tags: Array.isArray(p.tags) ? p.tags : [],
-
-    summary:
-      p.summary ||
-      p.description ||
-      (p.conteudo || p.content
-        ? (p.conteudo || p.content).slice(0, 140) + "..."
-        : ""),
+    // ✅ novos campos para a página de professores (sem quebrar nada)
+    autor,       // objeto com _id/name/disciplinas (ou pelo menos _id)
+    autorObj,    // se precisar em algum lugar
+    titulo,
+    conteudo,
+    materia,
 
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
   };
 }
+
+
+
 
 
 export async function getPosts() {
