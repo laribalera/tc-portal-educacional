@@ -7,6 +7,7 @@ import Carousel from "../../components/Carousel/Carousel";
 import Button from "../../components/Button/Button";
 import Pagination from "../../components/Pagination/Pagination";
 import Heading from "../../components/Headers/Headers";
+import Footer from "../../components/Footer/Footer";
 
 import { getPosts, searchPosts } from "../../services/posts.service";
 
@@ -58,36 +59,37 @@ export default function Home() {
   const goNext = () => setPage((p) => Math.min(totalPages, p + 1));
 
   return (
-    <main style={{ padding: 16, maxWidth: 1100, margin: "0 auto" }}>
-      <Carousel />
-      <Heading as="h1">Últimas publicações</Heading>
+    <>
+      <main style={{ padding: 16, maxWidth: 1100, margin: "0 auto" }}>
+        <Carousel />
+        <Heading as="h1">Últimas publicações</Heading>
 
+        <div style={{ margin: "12px 0 20px" }}>
+          <SearchBar value={term} onChange={setTerm} onSearch={handleSearch} />
+        </div>
 
-      <div style={{ margin: "12px 0 20px" }}>
-        <SearchBar value={term} onChange={setTerm} onSearch={handleSearch} />
-      </div>
+        {status === "loading" ? <Loading /> : null}
+        {status === "error" ? (
+          <ErrorState message={error} onRetry={() => fetchPosts(term)} />
+        ) : null}
 
-      {status === "loading" ? <Loading /> : null}
-      {status === "error" ? (
-        <ErrorState message={error} onRetry={() => fetchPosts(term)} />
-      ) : null}
+        {status === "idle" && posts.length === 0 ? <p>Nenhum post encontrado.</p> : null}
 
-      {status === "idle" && posts.length === 0 ? <p>Nenhum post encontrado.</p> : null}
+        {status === "idle" && posts.length > 0 ? (
+          <>
+            <PostList posts={visiblePosts} />
 
-      {status === "idle" && posts.length > 0 ? (
-        <>
-          <PostList posts={visiblePosts} />
+            <Pagination
+              page={page}
+              totalPages={totalPages}
+              onPrev={goPrev}
+              onNext={goNext}
+            />
+          </>
+        ) : null}
+      </main>
 
-          {/* Paginação */}
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPrev={goPrev}
-            onNext={goNext}
-          />
-
-        </>
-      ) : null}
-    </main>
+      <Footer />
+    </>
   );
 }
