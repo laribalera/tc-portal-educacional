@@ -11,7 +11,8 @@ app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use(express.json()); 
 app.use("/api/posts", require("./routes/postRoutes"));
-app.use('/api/professor', professorRoutes);
+app.use('/api/professores', professorRoutes);
+
 
 app.get('/', (req, res) => {
     res.send('Seja Bem-Vindo ao Portal Educacional');
