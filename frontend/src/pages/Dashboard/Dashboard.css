@@ -1,0 +1,150 @@
+.dashboard__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  font-family: 'Lexend', sans-serif;
+  color: #7B1F3C;
+}
+
+.dashboard__stats {
+  border-radius: 16px;
+}
+
+.dashboard__kpiLabel {
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+h1, h2, h3 {
+    font-family: 'Lexend', sans-serif;
+    color: #7B1F3C;
+    margin: 0;
+}
+
+.dashboard__titleCell {
+  min-width: 280px;
+}
+
+.dashboard__titleLink {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.dashboard__titleLink:hover {
+  text-decoration: underline;
+}
+
+.dashboard__tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.dashboard__tagsCloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Tag "chip" do dashboard */
+.dashboard__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background: rgba(123, 31, 60, 0.9);
+  color: #F1F2D5;
+
+  border: 1px solid rgba(241, 242, 213, 0.35);
+
+  /* mais quadrada, mas com borda redonda */
+  border-radius: 10px;
+
+  padding: 3px 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1;
+
+  user-select: none;
+}
+
+.dashboard__tagText {
+  white-space: nowrap;
+}
+
+/* Contador como "bolinha" clara dentro */
+.dashboard__tagCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 22px;
+  height: 22px;
+
+  border-radius: 8px; /* quadradinho arredondado */
+  background: #F1F2D5;
+    color: #7B1F3C;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+
+  padding: 0 3px;
+}
+
+.dash {
+  padding: 16px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.dash-subtitle {
+  margin: 0 0 16px 0;
+  opacity: 0.9;
+}
+
+.dash-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.dash-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dash-card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.dash-card-actions {
+  flex: 0 0 auto;
+}
+
+.dash-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0 8px;
+}
+
+.dash-tags {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}

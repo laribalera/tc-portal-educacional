@@ -25,3 +25,10 @@ export async function getUltimosPostsDoProfessor(professorId) {
     throw new Error(getApiErrorMessage(e, "Falha ao carregar posts do professor."));
   }
 }
+
+// busca os dados do professor logado
+export async function getMeProfessor() {
+  const { data } = await api.get("/professores/me");
+  return data; // { id, name, email, disciplinas }
+}
+

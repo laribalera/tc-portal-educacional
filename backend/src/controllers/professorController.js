@@ -62,9 +62,29 @@ async function loginProfessor(req, res) {
 }
 
 async function meProfessor(req, res) {
-  // req.user vem do middleware
-  return res.json({ user: req.user });
+  try {
+    const professorId = req.user.id;
+
+    const professor = await Professor
+      .findById(professorId)
+      .select("-senha");
+
+    if (!professor) {
+      return res.status(404).json({ message: "Professor não encontrado." });
+    }
+
+    return res.json({
+      id: professor._id,
+      name: professor.name,
+      email: professor.email,
+      disciplinas: professor.disciplinas,
+    });
+  } catch (err) {
+    console.error("Erro no meProfessor:", err);
+    return res.status(500).json({ message: "Erro ao buscar professor logado." });
+  }
 }
+
 
 
 
