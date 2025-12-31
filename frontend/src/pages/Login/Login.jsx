@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../app/AuthProvider";
 import { loginProfessor } from "../../services/auth.service";
 import Headers from "../../components/Headers/Headers";
@@ -25,7 +25,7 @@ export default function Login() {
       const data = await loginProfessor({ email, password });
       await login({ token: data.token, professor: data.professor });
       navigate(from, { replace: true });
-      
+
     } catch (e2) {
       setError(e2?.message || "Login inválido.");
       setStatus("idle");
@@ -76,7 +76,13 @@ export default function Login() {
           <button className="login-button" type="submit" disabled={status === "loading"}>
             {status === "loading" ? "Entrando..." : "Entrar"}
           </button>
+
+          <p className="login-footer">
+            Primeiro acesso? <Link to="/cadastro">Criar conta</Link>
+          </p>
+
         </form>
+
       </section>
     </main>
   );

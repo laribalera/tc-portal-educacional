@@ -32,3 +32,12 @@ export async function getMeProfessor() {
   return data; // { id, name, email, disciplinas }
 }
 
+// registra um novo professor
+export async function registerProfessor(payload) {
+  try {
+    const { data } = await api.post("/professores", payload);
+    return data;
+  } catch (e) {
+    throw new Error(getApiErrorMessage(e) || "Falha ao cadastrar professor.");
+  }
+}

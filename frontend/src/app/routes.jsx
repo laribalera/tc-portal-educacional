@@ -7,6 +7,8 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import PostEditor from "../pages/PostEditor/PostEditor";
 import ProtectedRoute from "./ProtectedRoute";
 import Professores from "../pages/Professores/Professores";
+import PostSelector from "../pages/PostSelector/PostSelector";
+import RegisterProfessor from "../pages/Register/RegisterProfessor";
 
 
 export function AppRoutes() {
@@ -15,6 +17,8 @@ export function AppRoutes() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+
+        <Route path="/posts" element={<PostSelector />} />
         <Route path="/posts/:id" element={<PostDetails />} />
         <Route path="/login" element={<Login />} />
 
@@ -45,7 +49,8 @@ export function AppRoutes() {
           }
         />
 
-        <Route path="/professores" element={<Professores />} />
+        <Route path="/professores" element={<Professores />} /> 
+        <Route path="/cadastro" element={<RegisterProfessor />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
