@@ -1,0 +1,144 @@
+.pe-posts-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.pe-tags {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 12px;
+  position: sticky;
+  top: 12px;
+  background: #fff;
+}
+
+.pe-tags__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.pe-tags__title {
+  font-size: 16px;
+  margin: 0;
+}
+
+.pe-tags__clear {
+  border: 0;
+  background: transparent;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.pe-tags__empty {
+  margin: 0;
+  opacity: 0.75;
+  font-size: 14px;
+}
+
+.pe-tags__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pe-tag {
+  width: 100%;
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: rgba(123, 31, 60, 0.85);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.pe-tag.is-active {
+  border-color: #7B1F3C;
+  outline: 2px solid rgba(123, 31, 60, 0.15);
+}
+
+.pe-tag__name {
+  font-size: 14px;
+}
+
+.pe-tag__count {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* responsivo */
+@media (max-width: 992px) {
+  .pe-posts-layout {
+    grid-template-columns: 1fr;
+  }
+  .pe-tags {
+    position: static;
+  }
+  .pe-tags__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .pe-tag {
+    width: auto;
+    gap: 10px;
+  }
+}
+
+.pe-tags__toggle {
+  border: 0;
+  background: transparent;
+  color: #7B1F3C;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.pe-tags__title {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.pe-tags__chevron {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 180ms ease;
+  opacity: 0.7;
+}
+
+.pe-tags__chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* Painel colapsável */
+.pe-tags__panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 220ms ease, opacity 220ms ease;
+}
+
+.pe-tags__panel.is-open {
+  max-height: 520px; 
+  opacity: 1;
+}
+
+.pe-tags__panel.is-open {
+  max-height: 520px;
+  opacity: 1;
+}
+
+.pe-tags__list {
+  max-height: 460px;
+  overflow: auto;
+  padding-right: 6px;
+}
+

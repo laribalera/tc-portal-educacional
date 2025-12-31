@@ -1,10 +1,9 @@
 import Button from "../Button/Button";
 
 export default function Pagination({
-  page,
-  totalPages,
-  onPrev,
-  onNext,
+  page = 1,
+  totalPages = 1,
+  onPageChange,
   className = "",
   showWhenSinglePage = false,
 }) {
@@ -13,11 +12,26 @@ export default function Pagination({
   const isFirst = page <= 1;
   const isLast = page >= totalPages;
 
+  const handlePrev = () => {
+    if (isFirst) return;
+    onPageChange(page - 1);
+  };
+
+  const handleNext = () => {
+    if (isLast) return;
+    onPageChange(page + 1);
+  };
+
   return (
     <div
       className={`d-flex justify-content-center align-items-center gap-3 mt-3 ${className}`}
     >
-      <Button variant="outline-secondary" onClick={onPrev} disabled={isFirst}>
+      <Button
+        type="button"
+        variant="outline-secondary"
+        onClick={handlePrev}
+        disabled={isFirst}
+      >
         Anterior
       </Button>
 
@@ -25,7 +39,12 @@ export default function Pagination({
         Página <strong>{page}</strong> de <strong>{totalPages}</strong>
       </span>
 
-      <Button variant="outline-secondary" onClick={onNext} disabled={isLast}>
+      <Button
+        type="button"
+        variant="outline-secondary"
+        onClick={handleNext}
+        disabled={isLast}
+      >
         Próxima
       </Button>
     </div>

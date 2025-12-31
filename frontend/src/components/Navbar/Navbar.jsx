@@ -70,6 +70,15 @@ export default function Navbar() {
             >
               Professores
             </NavLink>
+
+            <NavLink
+              to="/posts"
+              className="pe-navbar__link"
+              onClick={closeMenu}
+            >
+              Publicações
+            </NavLink>
+            
           </div>
 
           {/* Ações */}

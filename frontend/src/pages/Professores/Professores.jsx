@@ -6,7 +6,7 @@ import ProfessoresAccordion from "../../components/ProfessoresAccordion/Professo
 import { getPosts } from "../../services/posts.service";
 
 function autorKey(post) {
-  // com teu service atualizado, p.autor deve existir (objeto ou com _id)
+  
   return post?.autor?._id || post?.autor?.id || "sem-autor";
 }
 
