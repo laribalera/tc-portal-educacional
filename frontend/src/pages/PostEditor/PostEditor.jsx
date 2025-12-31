@@ -23,7 +23,7 @@ function getApiErrorMessage(err) {
   const status = err?.response?.status;
   const data = err?.response?.data;
 
-  // tenta pegar mensagens do backend em formatos comuns
+// erros mais comuns do back
   const backendMsg =
     data?.message ||
     data?.error ||
@@ -132,7 +132,7 @@ export default function PostEditor({ mode }) {
     load();
   }, [isEdit, id]);
 
-  // validação simples antes de abrir o confirm (evita 400 bobo)
+  // validação simples antes de abrir o confirm (evita 400)
   const MIN_CONTENT_LENGTH = 10;
 
   const validateForm = (formPayload) => {

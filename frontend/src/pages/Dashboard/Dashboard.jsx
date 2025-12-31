@@ -100,7 +100,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchAll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const total = String(meusPosts?.length ?? 0);

@@ -15,12 +15,10 @@ export default function PostCard({ post }) {
           <strong>Autor:</strong> {post.author}
         </p>
 
-        {/* conteúdo cresce, mas sem estourar */}
         <p className="card-text card-summary">
           {post.summary || post.description || "Sem descrição"}
         </p>
 
-        {/* botão sempre no final */}
         <div className="mt-auto pt-3">
           <Link to={`/posts/${post.id}`} className="btn card-button w-100">
             Ler post

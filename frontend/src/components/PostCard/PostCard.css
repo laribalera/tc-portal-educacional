@@ -3,7 +3,7 @@
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.3);
   overflow: hidden;
- min-height: 260px; /* ajuste fino: 240–320 geralmente fica bom */
+ min-height: 260px;
 
 }
 
@@ -22,7 +22,7 @@
   margin-bottom: 8px;
 }
 
-/* limita o texto pra não deixar cards “gigantes” */
+/* limita o texto pra não deixar cards gigantes */
 .card-summary {
   margin: 0;
   opacity: 0.9;
