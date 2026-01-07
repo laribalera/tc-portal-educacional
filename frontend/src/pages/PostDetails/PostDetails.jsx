@@ -76,7 +76,7 @@ export default function PostDetails() {
         <Breadcrumbs
           items={[
             { label: "Home", to: "/" },
-            { label: "Publicações", to: "/" },
+            { label: "Publicações", to: "/posts" },
             { label: postTitle },
           ]}
         />
@@ -84,9 +84,6 @@ export default function PostDetails() {
         <div className="post-details__title">
           <Headers level="h1">{postTitle}</Headers>
         </div>
-
-       
-
       </div>
 
 

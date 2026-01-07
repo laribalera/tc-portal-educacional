@@ -77,6 +77,8 @@ export default function Login() {
             {status === "loading" ? "Entrando..." : "Entrar"}
           </button>
 
+
+          {/* adicionameos um criar conta para facilitar nos testes da avaliação, colocamos um codigo para garantir que um aluno nao pudesse criar a conta, apenas pessoas com a credencial*/}
           <p className="login-footer">
             Primeiro acesso? <Link to="/cadastro">Criar conta</Link>
           </p>

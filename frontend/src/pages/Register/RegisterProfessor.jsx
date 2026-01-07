@@ -16,7 +16,7 @@ function toArrayFromText(text) {
 export default function RegisterProfessor() {
   const navigate = useNavigate();
 
-  // etapa 1 (gate)
+  // etapa 1 (gate com o codigo para evitar cadastros que nao sejam de professores - codigo: PORTALEDUCACIONALTC)
   const [codigo, setCodigo] = useState("");
   const [codigoOk, setCodigoOk] = useState(false);
 

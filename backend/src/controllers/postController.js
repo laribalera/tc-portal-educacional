@@ -105,6 +105,7 @@ const searchPostQuery = async (req, res) => {
         { tags: { $regex: q, $options: 'i' } },
       ],
     })
+      .collation({ locale: "pt", strength: 1 })
       .populate("autor", AUTHOR_SELECT)
       .sort({ createdAt: -1 });
 

@@ -26,7 +26,6 @@
   font-size: 1rem;
 }
 
-/* melhora leitura em telas grandes */
 @media (min-width: 992px) {
   .post-details__content {
     font-size: 1.05rem;

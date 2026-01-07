@@ -22,17 +22,14 @@ export default function Footer() {
           <div>
             <h4>Conteúdo</h4>
             <ul>
-              <li><Link to="/">Posts</Link></li>
-              <li><Link to="/buscar">Buscar</Link></li>
+              <li><Link to="/posts">Posts</Link></li>
             </ul>
           </div>
 
           <div>
             <h4>Área do Professor</h4>
             <ul>
-              <li><Link to="/login">Login</Link></li>
               <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><Link to="/posts/novo">Criar Post</Link></li>
             </ul>
           </div>
 

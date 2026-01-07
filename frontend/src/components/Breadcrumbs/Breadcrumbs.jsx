@@ -3,7 +3,6 @@ import "./Breadcrumbs.css";
 
 /**
  * items: [{ label: "Home", to: "/" }, { label: "Posts", to: "/posts" }, { label: "Detalhes" }]
- * O último item pode vir sem "to" (fica como texto).
  */
 export default function Breadcrumbs({ items = [] }) {
   if (!items.length) return null;

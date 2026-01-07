@@ -6,7 +6,6 @@
   --prof-muted: #6c757d;
 }
 
-/* Card do accordion */
 #professoresAccordion .accordion-item {
   border: 1px solid var(--prof-border);
   border-radius: 10px;
@@ -21,7 +20,6 @@
   transform: translateY(-1px);
 }
 
-/* Header */
 #professoresAccordion .accordion-button {
   background-color: var(--prof-bg);
   color: #212529;
@@ -34,7 +32,6 @@
   background-color: rgba(123, 31, 60, 0.04);
 }
 
-/* Estado aberto */
 #professoresAccordion .accordion-button:not(.collapsed) {
   background-color: rgba(123, 31, 60, 0.06);
   color: var(--prof-accent);
@@ -44,24 +41,20 @@
   color: var(--prof-muted);
 }
 
-/* Remove foco azul padrão */
 #professoresAccordion .accordion-button:focus {
   box-shadow: none;
   border-color: transparent;
 }
 
-/* Ícone seta */
 #professoresAccordion .accordion-button::after {
   filter: opacity(0.7);
 }
 
-/* Corpo */
 #professoresAccordion .accordion-body {
   padding: 18px;
   background-color: #fafafa;
 }
 
-/* Lista de posts */
 #professoresAccordion .list-group {
   border-radius: 8px;
   overflow: hidden;
@@ -77,7 +70,6 @@
   border-bottom: none;
 }
 
-/* Título do post */
 #professoresAccordion .list-group-item a {
   color: #212529;
   text-decoration: none;
@@ -87,7 +79,6 @@
   text-decoration: underline;
 }
 
-/* Data */
 #professoresAccordion .list-group-item .text-muted {
   font-size: 0.8rem;
 }
