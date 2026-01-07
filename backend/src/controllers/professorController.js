@@ -86,8 +86,6 @@ async function meProfessor(req, res) {
 }
 
 
-
-
 // criar novo professor
 const createProfessor = async (req, res) => {
   try {
