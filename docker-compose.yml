@@ -27,7 +27,6 @@ services:
     build:
       context: ./frontend
       args:
-        # o front vai chamar o backend pelo nome do serviço ("app")
         VITE_API_URL: http://localhost:3000/api
     container_name: tc-portal-educacional-front
     ports:
