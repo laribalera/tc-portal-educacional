@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const postRoutes = require("./routes/postRoutes");
 const professorRoutes = require("./routes/professorRoutes");
+const alunoRoutes = require("./routes/alunoRoutes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(
 app.use(express.json());
 app.use("/api/posts", postRoutes);
 app.use("/api/professores", professorRoutes);
+app.use("/api/alunos", alunoRoutes);
 
 app.get("/", (req, res) => {
   res.send("Seja Bem-Vindo ao Portal Educacional");
