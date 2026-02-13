@@ -78,6 +78,7 @@ async function meAluno(req, res) {
         name: aluno.name,
         email: aluno.email,
         disciplinas: aluno.disciplinas,
+        role: "aluno",
     });
   } catch (err) {
     console.error("Erro no meAluno:", err);
