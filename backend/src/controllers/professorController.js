@@ -17,11 +17,15 @@ function signToken(professor) {
   }
 
   return jwt.sign(
-    { sub: professor._id.toString(), role: "professor" },
+    {
+      sub: professor._id.toString(),
+      role: professor.role || "professor",
+    },
     secret,
     { expiresIn }
   );
 }
+
 
 async function loginProfessor(req, res) {
   try {
@@ -53,6 +57,7 @@ async function loginProfessor(req, res) {
         name: professor.name,
         email: professor.email,
         disciplinas: professor.disciplinas,
+        role: professor.role || "professor",
       },
     });
   } catch (err) {

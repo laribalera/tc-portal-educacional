@@ -9,12 +9,7 @@ const app = express();
 
 const allowedOrigins = ["http://localhost:5173", "http://localhost:8080"];
 
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 app.use("/api/posts", postRoutes);
